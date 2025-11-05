@@ -116,7 +116,7 @@ function loop() {
 
     // Yazıyı kalbin ortasına çiz (font büyütüldü)
     a.fillStyle = "rgba(231, 12, 140, 0.7)";
-    a.font = "130px Allura, cursive";
+    a.font = "100px Allura, cursive";
     a.textAlign = "center";
     a.fillText("Zeynep", O / 2, Q / 2 + 15);
 }
@@ -158,3 +158,4 @@ window.addEventListener('wheel', function (e) {
 document.addEventListener('gesturestart', function (e) {
     e.preventDefault();
 });
+
