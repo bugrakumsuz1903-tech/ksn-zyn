@@ -12,6 +12,10 @@ a.scale(dpr, dpr);
 var O = window.innerWidth;
 var Q = window.innerHeight;
 
+// kalbi biraz küçültmek için ölçekler (şimdi iki kat daha küçük)
+var heartScaleX = 180; // önce 260
+var heartScaleY = 15;   // önce 18
+
 v = 32;
 M = Math;
 R = M.random;
@@ -20,8 +24,8 @@ Y = 6.3;
 
 for (i = 0; i < Y; i += 0.2) {
     h.push([
-        O / 2 + 280 * M.pow(M.sin(i), 3),    // 180 → 280 (büyüttüm)
-        Q / 2 + 20 * (-(15 * C(i) - 5 * C(2 * i) - 2 * C(3 * i) - C(4 * i))) // 10 → 20 (büyüttüm)
+        O / 2 + heartScaleX * M.pow(M.sin(i), 3),
+        Q / 2 + heartScaleY * (-(15 * C(i) - 5 * C(2 * i) - 2 * C(3 * i) - C(4 * i)))
     ]);
 }
 
@@ -62,6 +66,13 @@ function render(_) {
     a.arc(_.x, _.y, _.R, 0, Y, 1);
     a.closePath();
     a.fill();
+}
+function updateFont() {
+    // Burayı değiştirerek ekran genişliğine göre ölçeklendirmeyi ayarlayabilirsiniz:
+    // örn: 0.12 -> 0.09 küçültür; min 24, max 140
+    var scale = 0.12;
+    var base = Math.round(Math.max(24, Math.min(140, window.innerWidth * scale)));
+    a.font = '00 ' + base + 'px "Bitcount Grid Single", sans-serif';
 }
 
 function loop() {
@@ -143,8 +154,8 @@ window.addEventListener('resize', function () {
     h = [];
     for (let i = 0; i < Y; i += 0.2) {
         h.push([
-            O / 2 + 280 * M.pow(M.sin(i), 3),
-            Q / 2 + 20 * (-(15 * C(i) - 5 * C(2 * i) - 2 * C(3 * i) - C(4 * i)))
+            O / 2 + heartScaleX * M.pow(M.sin(i), 3),
+            Q / 2 + heartScaleY * (-(15 * C(i) - 5 * C(2 * i) - 2 * C(3 * i) - C(4 * i)))
         ]);
     }
 });
@@ -158,4 +169,3 @@ window.addEventListener('wheel', function (e) {
 document.addEventListener('gesturestart', function (e) {
     e.preventDefault();
 });
-
